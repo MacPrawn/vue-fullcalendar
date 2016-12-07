@@ -1,5 +1,5 @@
 <template>
-    <div v-el:calendar id="calendar"></div>
+    <div ref="calendar" id="calendar"></div>
 </template>
 
 <script>
@@ -61,10 +61,10 @@
         },
 
         ready() {
-            const cal = $(this.$els.calendar),
+            const cal = $(this.$refs.calendar),
                 self = this
 
-            $(this.$els.calendar).fullCalendar({
+            cal.fullCalendar({
                 header: this.header,
                 defaultView: this.defaultView,
                 editable: this.editable,
@@ -113,32 +113,32 @@
             events: {
                 deep: true,
                 handler(val) {
-                    $(this.$els.calendar).fullCalendar('rerenderEvents')
+                    $(this.$refs.calendar).fullCalendar('rerenderEvents')
                 },
             }
         },
 
         events: {
             'remove-event'(event) {
-                $(this.$els.calendar).fullCalendar('removeEvents', event.id)
+                $(this.$refs.calendar).fullCalendar('removeEvents', event.id)
             },
             'rerender-events'(event) {
-                $(this.$els.calendar).fullCalendar('rerenderEvents')
+                $(this.$refs.calendar).fullCalendar('rerenderEvents')
             },
             'refetch-events'(event) {
-                $(this.$els.calendar).fullCalendar('refetchEvents')
+                $(this.$refs.calendar).fullCalendar('refetchEvents')
             },
             'render-event'(event) {
-                $(this.$els.calendar).fullCalendar('renderEvent', event)
+                $(this.$refs.calendar).fullCalendar('renderEvent', event)
             },
             'reload-events'() {
-                $(this.$els.calendar).fullCalendar('removeEvents')
-                $(this.$els.calendar).fullCalendar('addEventSource', this.events)
+                $(this.$refs.calendar).fullCalendar('removeEvents')
+                $(this.$refs.calendar).fullCalendar('addEventSource', this.events)
             },
             'rebuild-sources'() {
-                $(this.$els.calendar).fullCalendar('removeEvents')
+                $(this.$refs.calendar).fullCalendar('removeEvents')
                 this.eventSources.map(event => {
-                    $(this.$els.calendar).fullCalendar('addEventSource', event)
+                    $(this.$refs.calendar).fullCalendar('addEventSource', event)
                 })
             },
         },
