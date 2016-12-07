@@ -9,11 +9,11 @@
         props: {
             events: {
                 type: Array,
-                default: []
+                default() { return [] }
             },
             eventSources: {
                 type: Array,
-                default: []
+                default() { return [] }
             },
             editable: {
                 type: Boolean,
@@ -33,10 +33,12 @@
             },
             header: {
                 type: Object,
-                default: {
-                    left:   'prev,next today',
-                    center: 'title',
-                    right:  'month,agendaWeek,agendaDay'
+                default() {
+                    return {
+                        left:   'prev,next today',
+                        center: 'title',
+                        right:  'month,agendaWeek,agendaDay'
+                    }
                 }
             },
             defaultView: {
