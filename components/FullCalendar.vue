@@ -30,7 +30,7 @@
             allDaySlot: {
                 type: Boolean,
                 default: true
-            }
+            },
             header: {
                 type: Object,
                 default: {
