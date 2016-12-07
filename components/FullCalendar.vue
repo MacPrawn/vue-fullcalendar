@@ -8,56 +8,45 @@
     export default {
         props: {
             events: {
-                default() {
-                    return []
-                },
+                type: Array,
+                default: []
             },
-
             eventSources: {
-                default() {
-                    return []
-                },
+                type: Array,
+                default: []
             },
-
             editable: {
-                default() {
-                    return true
-                },
+                type: Boolean,
+                default: true
             },
-
             selectable: {
-                default() {
-                    return true
-                },
+                type: Boolean,
+                default: true
             },
-
             selectHelper: {
-                default() {
-                    return true
-                },
+                type: Boolean,
+                default: false
             },
-
+            allDaySlot: {
+                type: Boolean,
+                default: true
+            }
             header: {
-                default() {
-                    return {
-                        left:   'prev,next today',
-                        center: 'title',
-                        right:  'month,agendaWeek,agendaDay'
-                    }
-                },
-            },
-
-            defaultView: {
-                default() {
-                    return 'agendaWeek'
-                },
-            },
-
-            sync: {
-                default() {
-                    return false
+                type: Object,
+                default: {
+                    left:   'prev,next today',
+                    center: 'title',
+                    right:  'month,agendaWeek,agendaDay'
                 }
             },
+            defaultView: {
+                type: String,
+                default: 'agendaWeek'
+            },
+            sync: {
+                type: Boolean,
+                default: false
+            }
         },
 
         mounted() {
@@ -69,6 +58,7 @@
                 editable: this.editable,
                 selectable: this.selectable,
                 selectHelper: this.selectHelper,
+                allDaySlot: this.allDaySlot,
                 aspectRatio: 2,
                 timeFormat: 'HH:mm',
                 events: this.events,
