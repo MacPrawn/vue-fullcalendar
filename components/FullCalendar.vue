@@ -61,8 +61,7 @@
         },
 
         ready() {
-            const cal = $(this.$refs.calendar),
-                self = this
+            const cal = $(this.$refs.calendar);
 
             cal.fullCalendar({
                 header: this.header,
@@ -72,35 +71,35 @@
                 selectHelper: this.selectHelper,
                 aspectRatio: 2,
                 timeFormat: 'HH:mm',
-                events: self.events,
-                eventSources: self.eventSources,
+                events: this.events,
+                eventSources: this.eventSources,
 
-                eventRender(event, element) {
+                eventRender: (event, element) => {
                     if (this.sync) {
-                        self.events = cal.fullCalendar('clientEvents')
+                        this.events = cal.fullCalendar('clientEvents')
                     }
                 },
 
-                eventDestroy(event) {
+                eventDestroy: (event) => {
                     if (this.sync) {
-                        self.events = cal.fullCalendar('clientEvents')
+                        this.events = cal.fullCalendar('clientEvents')
                     }
                 },
 
-                eventClick(event) {
-                    self.$dispatch('event-selected', event)
+                eventClick: (event) => {
+                    this.$emit('event-selected', event)
                 },
 
-                eventDrop(event) {
-                    self.$dispatch('event-drop', event)
+                eventDrop: (event) => {
+                    this.$emit('event-drop', event)
                 },
 
-                eventResize(event) {
-                    self.$dispatch('event-resize', event)
+                eventResize: (event) => {
+                    this.$emit('event-resize', event)
                 },
 
-                select(start, end, jsEvent) {
-                    self.$dispatch('event-created', {
+                select: (start, end, jsEvent) =>  {
+                    this.$emit('event-created', {
                         start,
                         end,
                         allDay: !start.hasTime() && !end.hasTime(),
@@ -113,34 +112,34 @@
             events: {
                 deep: true,
                 handler(val) {
-                    $(this.$refs.calendar).fullCalendar('rerenderEvents')
+                    this.$emit('reload-events')
                 },
             }
         },
 
-        events: {
-            'remove-event'(event) {
+        created() {
+            this.$on('remove-event', (event) => {
                 $(this.$refs.calendar).fullCalendar('removeEvents', event.id)
-            },
-            'rerender-events'(event) {
+            })
+            this.$on('rerender-events', (event) => {
                 $(this.$refs.calendar).fullCalendar('rerenderEvents')
-            },
-            'refetch-events'(event) {
+            })
+            this.$on('refetch-events', (event) => {
                 $(this.$refs.calendar).fullCalendar('refetchEvents')
-            },
-            'render-event'(event) {
+            })
+            this.$on('render-event', (event) => {
                 $(this.$refs.calendar).fullCalendar('renderEvent', event)
-            },
-            'reload-events'() {
+            })
+            this.$on('reload-events', () => {
                 $(this.$refs.calendar).fullCalendar('removeEvents')
                 $(this.$refs.calendar).fullCalendar('addEventSource', this.events)
-            },
-            'rebuild-sources'() {
+            })
+            this.$on('rebuild-sources', () => {
                 $(this.$refs.calendar).fullCalendar('removeEvents')
                 this.eventSources.map(event => {
                     $(this.$refs.calendar).fullCalendar('addEventSource', event)
                 })
-            },
-        },
+            })
+        }
     }
 </script>
