@@ -17,11 +17,11 @@
             },
             editable: {
                 type: Boolean,
-                default: true
+                default: false
             },
             selectable: {
                 type: Boolean,
-                default: true
+                default: false
             },
             selectHelper: {
                 type: Boolean,
@@ -29,7 +29,7 @@
             },
             allDaySlot: {
                 type: Boolean,
-                default: true
+                default: false
             },
             header: {
                 type: Object,
