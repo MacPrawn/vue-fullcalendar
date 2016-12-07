@@ -60,7 +60,7 @@
             },
         },
 
-        ready() {
+        mounted() {
             const cal = $(this.$refs.calendar);
 
             cal.fullCalendar({
